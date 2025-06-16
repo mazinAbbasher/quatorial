@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+{% comment %} {% load static %} {% endcomment %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equatorial Medical Company LTD | Healthcare Solutions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #458f33; /* updated brand color */
+            --secondary: #00c6ae;
+            --accent: #f7b731;
+            --bg-gradient: linear-gradient(120deg, #f8fafc 0%, #e0eafc 100%);
+            --glass-bg: rgba(255,255,255,0.85);
+            --glass-blur: blur(18px);
+            --shadow: 0 8px 32px rgba(46,49,146,0.10);
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg-gradient);
+            font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+            color: #222;
+            letter-spacing: 0.01em;
+            min-height: 100vh;
+        }
+        .navbar {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            box-shadow: var(--shadow);
+            border-radius: 0 0 2rem 2rem;
+            margin: 0.3rem;
+            padding: 0.5rem 0;
+        }
+        .navbar-brand {
+            font-weight: 900;
+            font-size: 2.5rem;
+            color: var(--primary) !important;
+            letter-spacing: 2.5px;
+            text-shadow: 0 2px 12px rgba(46,49,146,0.10);
+        }
+        .nav-link {
+            font-weight: 700;
+            color: #222 !important;
+            margin-left: 2rem;
+            font-size: 1.15rem;
+            transition: color 0.2s, border-bottom 0.2s;
+            border-bottom: 2px solid transparent;
+            letter-spacing: 0.5px;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--secondary) !important;
+            border-bottom: 2px solid var(--secondary);
+        }
+        .hero {
+            min-height: 88vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: url('logo.jpg') center/cover no-repeat, linear-gradient(120deg, #222944 0%, #00c6ae 100%);
+            overflow: hidden;
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(34,41,68,0.82) 0%, rgba(0,198,174,0.68) 100%);
+            z-index: 1;
+        }
+        /* Animated shapes for hero */
+        .hero-shape {
+            position: absolute;
+            z-index: 2;
+            opacity: 0.13;
+            pointer-events: none;
+        }
+        .hero-shape.shape1 {
+            top: 8%;
+            left: 5%;
+            width: 120px;
+            height: 120px;
+            animation: float1 7s ease-in-out infinite;
+        }
+        .hero-shape.shape2 {
+            bottom: 10%;
+            right: 8%;
+            width: 90px;
+            height: 90px;
+            animation: float2 9s ease-in-out infinite;
+        }
+        .hero-shape.shape3 {
+            top: 60%;
+            left: 60%;
+            width: 60px;
+            height: 60px;
+            animation: float3 11s ease-in-out infinite;
+        }
+        @keyframes float1 {
+            0%,100% { transform: translateY(0);}
+            50% { transform: translateY(-24px);}
+        }
+        @keyframes float2 {
+            0%,100% { transform: translateY(0);}
+            50% { transform: translateY(18px);}
+        }
+        @keyframes float3 {
+            0%,100% { transform: translateY(0);}
+            50% { transform: translateY(-12px);}
+        }
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            background: rgba(255,255,255,0.10);
+            box-shadow: 0 12px 48px rgba(46,49,146,0.13);
+            border-radius: 2.5rem;
+            padding: 4.5rem 3rem 3.5rem 3rem;
+            max-width: 700px;
+            margin: auto;
+            text-align: center;
+            animation: fadeInDown 1.2s cubic-bezier(.77,0,.18,1) both;
+            border: 1.5px solid #e0eafc;
+            backdrop-filter: blur(12px);
+        }
+        .hero-title {
+            font-size: 3.7rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 2.5px;
+            margin-bottom: 1.2rem;
+            text-shadow: 0 4px 32px rgba(0,0,0,0.18), 0 2px 12px rgba(46,49,146,0.10);
+        }
+        .hero-subtitle {
+            font-size: 1.6rem;
+            color: #f7b731;
+            margin-bottom: 2.5rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.10);
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border: none;
+            font-weight: 800;
+            font-size: 1.25rem;
+            border-radius: 2rem;
+            padding: 1rem 3.5rem;
+            box-shadow: 0 4px 24px rgba(0,198,174,0.13);
+            transition: background 0.3s, transform 0.2s;
+            letter-spacing: 1px;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            transform: translateY(-2px) scale(1.04);
+        }
+        .section-title {
+            font-weight: 900;
+            font-size: 2.8rem;
+            margin-bottom: 2.5rem;
+            color: var(--primary);
+            letter-spacing: 1.2px;
+            text-shadow: 0 2px 12px rgba(46,49,146,0.08);
+        }
+        section {
+            animation: fadeInUp 1s cubic-bezier(.77,0,.18,1) both;
+        }
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-40px);}
+            100% { opacity: 1; transform: translateY(0);}
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(40px);}
+            100% { opacity: 1; transform: translateY(0);}
+        }
+        .divider {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+            margin: 0 auto 2.5rem auto;
+        }
+        .card {
+            border: none;
+            border-radius: 2rem;
+            box-shadow: 0 8px 32px rgba(46,49,146,0.10);
+            transition: transform 0.2s, box-shadow 0.2s;
+            background: var(--glass-bg);
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 16px 48px rgba(0,198,174,0.16);
+        }
+        .card-img-top {
+            border-top-left-radius: 2rem;
+            border-top-right-radius: 2rem;
+            height: 220px;
+            object-fit: cover;
+            filter: brightness(0.98) contrast(1.08);
+        }
+        .card-title {
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 1.35rem;
+            margin-bottom: 0.7rem;
+        }
+        .card-text {
+            color: #444;
+            font-size: 1.09rem;
+        }
+        .about-icons {
+            font-size: 2.3rem;
+            color: var(--secondary);
+            margin-right: 0.7rem;
+            vertical-align: middle;
+        }
+        .footer {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: #fff;
+            padding: 48px 0 24px 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.13rem;
+            letter-spacing: 1px;
+            border-radius: 2rem 2rem 0 0;
+            box-shadow: 0 -8px 32px rgba(46,49,146,0.10);
+        }
+        .footer small {
+            color: #e0eafc;
+        }
+        .footer .social-icons a {
+            color: #fff;
+            margin: 0 0.5rem;
+            font-size: 1.7rem;
+            transition: color 0.2s;
+        }
+        .footer .social-icons a:hover {
+            color: var(--accent);
+        }
+        .contact-form input, .contact-form textarea {
+            border-radius: 1rem;
+            border: 1px solid #e0eafc;
+            font-size: 1.1rem;
+            background: #fff;
+        }
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 0.2rem rgba(0,198,174,0.08);
+        }
+        .contact-form .form-floating > label {
+            color: #888;
+        }
+        .partners-logos img {
+            filter: grayscale(1) brightness(0.9);
+            opacity: 0.7;
+            transition: filter 0.2s, opacity 0.2s;
+            margin: 0 1.5rem 1rem 1.5rem;
+            max-height: 48px;
+        }
+        .partners-logos img:hover {
+            filter: none;
+            opacity: 1;
+        }
+        .value-prop {
+            background: rgba(255,255,255,0.92);
+            border-radius: 2rem;
+            box-shadow: 0 4px 24px rgba(46,49,146,0.07);
+            padding: 2.5rem 2rem 2rem 2rem;
+            margin-bottom: 2.5rem;
+        }
+        .value-prop-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.7rem;
+        }
+        .counter {
+            font-size: 2.7rem;
+            font-weight: 900;
+            color: var(--secondary);
+            margin-bottom: 0.3rem;
+        }
+        .counter-label {
+            font-size: 1.1rem;
+            color: #555;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        /* Responsive tweaks */
+        @media (max-width: 992px) {
+            .navbar { margin: 0.5rem 0.5rem 1.5rem 0.5rem; border-radius: 0 0 1.2rem 1.2rem;}
+            .hero-title { font-size: 2.3rem; }
+            .section-title { font-size: 1.5rem; }
+            .card-img-top { height: 140px; }
+        }
+        @media (max-width: 768px) {
+            .hero-content { padding: 1.5rem 0.5rem; }
+            .navbar { margin: 0; border-radius: 0;}
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                {% comment %} <i class="bi bi-capsule-pill"></i> hh {% endcomment %}
+                <img src="logo.png" alt="logo" style="height:68px;width:198px;filter:drop-shadow(0 2px 8px rgba(46,49,146,0.10));">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#vision">Vision</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#mission">Mission</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#partners">Partners</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <!-- Animated SVG shapes -->
+        <svg class="hero-shape shape1" viewBox="0 0 120 120" fill="none">
+            <circle cx="60" cy="60" r="60" fill="#00c6ae"/>
+        </svg>
+        <svg class="hero-shape shape2" viewBox="0 0 90 90" fill="none">
+            <rect width="90" height="90" rx="24" fill="#f7b731"/>
+        </svg>
+        <svg class="hero-shape shape3" viewBox="0 0 60 60" fill="none">
+            <polygon points="30,0 60,60 0,60" fill="#fff"/>
+        </svg>
+        <div class="container hero-content shadow-lg">
+            <h1 class="hero-title mb-3">Equatorial Medical Company LTD</h1>
+            <div class="divider" style="background:linear-gradient(90deg,#fff,var(--secondary));"></div>
+            <p class="hero-subtitle mb-4">Improving Healthcare Access Across Sudan</p>
+            <div class="hero-cta">
+                {% comment %} <a href="#contact" class="btn btn-hero btn-lg px-4 shadow">Contact Us</a> {% endcomment %}
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Value Proposition Section -->
+    <section class="value-prop">
+        <div class="container">
+            <h2 class="section-title text-center mb-4">Why Choose Equatorial?</h2>
+            <div class="row text-center g-4">
+                <div class="col-md-4">
+                    <div>
+                        <i class="bi bi-geo-alt value-prop-icon"></i>
+                        <h5 class="fw-bold mb-2">Local Market Expertise</h5>
+                        <p>We understand Sudan’s healthcare landscape, regulations, and regional needs, allowing us to deliver targeted solutions.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        <i class="bi bi-truck value-prop-icon"></i>
+                        <h5 class="fw-bold mb-2">Reliable Distribution Network</h5>
+                        <p>Our logistics system ensures timely delivery of products even in hard-to-reach areas.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        <i class="bi bi-globe2 value-prop-icon"></i>
+                        <h5 class="fw-bold mb-2">Strategic Global Partnerships</h5>
+                        <p>We work with reputable international manufacturers to provide affordable, high-quality products.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center g-4 mt-3">
+                <div class="col-md-4">
+                    <div>
+                        <i class="bi bi-people-fill value-prop-icon"></i>
+                        <h5 class="fw-bold mb-2">Agile, Knowledgeable Team</h5>
+                        <p>Our responsive, adaptable team offers personalized service and strong industry relationships.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        <i class="bi bi-lightbulb value-prop-icon"></i>
+                        <h5 class="fw-bold mb-2">Commitment to Quality & Innovation</h5>
+                        <p>We’re focused on excellence and exploring new healthcare technologies to better serve communities.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        <i class="bi bi-shield-check value-prop-icon"></i>
+                        <h5 class="fw-bold mb-2">Regulatory Compliance</h5>
+                        <p>We fully comply with Sudanese laws and guidelines, ensuring smooth and lawful operations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section id="vision" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">Our Vision</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center fs-5">
+                    <i class="bi bi-eye about-icons"></i>
+                    <p>
+                        To become the leading provider of healthcare solutions in Sudan and beyond—recognized for our commitment to quality, innovation, and community impact. We aim to build a future where every individual has access to the medical resources they need to lead healthier lives.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section id="mission" class="py-5 bg-white">
+        <div class="container">
+            <h2 class="section-title text-center">Our Mission</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center fs-5">
+                    <i class="bi bi-bullseye about-icons"></i>
+                    <p>
+                        To enhance healthcare access and outcomes in Sudan by delivering high-quality, reliable, and affordable medical products and services through a trusted network of partners. We are committed to empowering healthcare providers and improving patient care with innovative, tailored solutions.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-5" style="background:linear-gradient(120deg,#f8fafc 60%,#e0eafc 100%);">
+        <div class="container">
+            <h2 class="section-title text-center mb-4" style="font-size:2.7rem;letter-spacing:1.5px;">About Us</h2>
+            <div class="divider"></div>
+            <div class="row align-items-stretch g-4">
+                <!-- Company Overview & Highlights -->
+                <div class="col-lg-6 d-flex flex-column justify-content-between">
+                    <div class="bg-white bg-opacity-90 rounded-5 shadow-lg p-5 h-100 d-flex flex-column justify-content-between" style="border:1.5px solid #e0eafc;">
+                        <div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-capsule-pill" style="font-size:2.5rem;color:var(--primary);margin-right:0.7rem;"></i>
+                                <span class="fw-bold text-primary" style="font-size:1.5rem;">Equatorial Medical Company LTD</span>
+                                <span class="badge bg-gradient" style="background:linear-gradient(90deg,#00c6ae,#458f33);color:#fff;font-weight:700;margin-left:1rem;">Since 2021</span>
+                            </div>
+                            <p class="fs-5 mb-3" style="color:#333;">
+                                Founded in Khartoum and now headquartered in <b>El Gedaref State</b>, Equatorial Medical Company LTD is dedicated to transforming healthcare access across Sudan. We bridge critical gaps in the supply chain, ensuring even the most underserved communities receive the highest quality medical products and services.
+                            </p>
+                            <ul class="list-unstyled mb-4">
+                                <li class="mb-2 d-flex align-items-center">
+                                    <i class="bi bi-geo-alt-fill text-secondary me-2"></i>
+                                    <span><b>Headquarters:</b> El Gedaref State, Sudan</span>
+                                </li>
+                                <li class="mb-2 d-flex align-items-center">
+                                    <i class="bi bi-people-fill text-secondary me-2"></i>
+                                    <span><b>Team:</b> Multidisciplinary professionals in healthcare, logistics, and regulatory affairs</span>
+                                </li>
+                                <li class="mb-2 d-flex align-items-center">
+                                    <i class="bi bi-globe2 text-secondary me-2"></i>
+                                    <span><b>Network:</b> Nationwide operations, collaborating with KOLs, healthcare professionals, and distribution partners</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold text-primary mb-3">What Sets Us Apart</h5>
+                            <div class="row g-2">
+                                <div class="col-12">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <span class="badge rounded-pill bg-success bg-opacity-10 text-success me-2" style="font-size:1.1rem;"><i class="bi bi-check-circle-fill me-1"></i> Local Empowerment</span>
+                                        <span class="badge rounded-pill bg-info bg-opacity-10 text-info me-2" style="font-size:1.1rem;"><i class="bi bi-lightning-charge-fill me-1"></i> Agile Service</span>
+                                    </div>
+                                    <div class="d-flex align-items-center mb-2">
+                                        <span class="badge rounded-pill bg-warning bg-opacity-10 text-warning me-2" style="font-size:1.1rem;"><i class="bi bi-shield-lock-fill me-1"></i> Ethical Practice</span>
+                                        <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary" style="font-size:1.1rem;"><i class="bi bi-mortarboard-fill me-1"></i> Continuous Learning</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 text-muted small" style="font-size:1.07rem;">
+                                We combine deep local market expertise with global partnerships to deliver reliable, innovative solutions in pharmaceuticals, medical supplies, and support services.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modern Team Portfolio -->
+                <div class="col-lg-6">
+                    <div class="bg-white bg-opacity-95 rounded-5 shadow-lg p-5 h-100" style="border:1.5px solid #e0eafc;">
+                        <h5 class="fw-bold text-primary mb-4" style="font-size:1.35rem;">Meet Our Core Team</h5>
+                        <div class="row row-cols-2 row-cols-md-3 g-3">
+                            <div class="col">
+                                <div class="card border-0 shadow-sm h-100 text-center team-card" style="background:linear-gradient(120deg,#f8fafc 80%,#e0eafc 100%);">
+                                    <div class="card-body p-3">
+                                        <i class="bi bi-person-badge" style="font-size:2.2rem;color:var(--primary);"></i>
+                                        <div class="fw-bold mt-2">Yahia Basheer</div>
+                                        <div class="small text-muted">General Manager</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card border-0 shadow-sm h-100 text-center team-card" style="background:linear-gradient(120deg,#f8fafc 80%,#e0eafc 100%);">
+                                    <div class="card-body p-3">
+                                        <i class="bi bi-bar-chart-steps" style="font-size:2.2rem;color:var(--primary);"></i>
+                                        <div class="fw-bold mt-2">Bokhari Omer Mohammed</div>
+                                        <div class="small text-muted">Marketing & Sales / Finance</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card border-0 shadow-sm h-100 text-center team-card" style="background:linear-gradient(120deg,#f8fafc 80%,#e0eafc 100%);">
+                                    <div class="card-body p-3">
+                                        <i class="bi bi-file-earmark-medical" style="font-size:2.2rem;color:var(--primary);"></i>
+                                        <div class="fw-bold mt-2">Tasneem Abd Elazeez</div>
+                                        <div class="small text-muted">Registration Dept.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card border-0 shadow-sm h-100 text-center team-card" style="background:linear-gradient(120deg,#f8fafc 80%,#e0eafc 100%);">
+                                    <div class="card-body p-3">
+                                        <i class="bi bi-balance-scale" style="font-size:2.2rem;color:var(--primary);"></i>
+                                        <div class="fw-bold mt-2">Mawada</div>
+                                        <div class="small text-muted">Legal Dept.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card border-0 shadow-sm h-100 text-center team-card" style="background:linear-gradient(120deg,#f8fafc 80%,#e0eafc 100%);">
+                                    <div class="card-body p-3">
+                                        <i class="bi bi-person-vcard" style="font-size:2.2rem;color:var(--primary);"></i>
+                                        <div class="fw-bold mt-2">Rayan</div>
+                                        <div class="small text-muted">Medical Rep.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card border-0 shadow-sm h-100 text-center team-card" style="background:linear-gradient(120deg,#f8fafc 80%,#e0eafc 100%);">
+                                    <div class="card-body p-3">
+                                        <i class="bi bi-person-vcard" style="font-size:2.2rem;color:var(--primary);"></i>
+                                        <div class="fw-bold mt-2">Megdad</div>
+                                        <div class="small text-muted">Medical Rep.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card border-0 shadow-sm h-100 text-center team-card" style="background:linear-gradient(120deg,#f8fafc 80%,#e0eafc 100%);">
+                                    <div class="card-body p-3">
+                                        <i class="bi bi-person-vcard" style="font-size:2.2rem;color:var(--primary);"></i>
+                                        <div class="fw-bold mt-2">Shrooq</div>
+                                        <div class="small text-muted">Medical Rep.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card border-0 shadow-sm h-100 text-center team-card" style="background:linear-gradient(120deg,#f8fafc 80%,#e0eafc 100%);">
+                                    <div class="card-body p-3">
+                                        <i class="bi bi-person-vcard" style="font-size:2.2rem;color:var(--primary);"></i>
+                                        <div class="fw-bold mt-2">Mazen</div>
+                                        <div class="small text-muted">Medical Rep.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card border-0 shadow-sm h-100 text-center team-card" style="background:linear-gradient(120deg,#f8fafc 80%,#e0eafc 100%);">
+                                    <div class="card-body p-3">
+                                        <i class="bi bi-person-vcard" style="font-size:2.2rem;color:var(--primary);"></i>
+                                        <div class="fw-bold mt-2">Alla</div>
+                                        <div class="small text-muted">Medical Rep.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 small text-muted text-center">
+                            <i class="bi bi-plus-circle text-secondary"></i>
+                            Expanding soon: <b>10+ Medical Reps</b> &amp; a <b>Key Accounts Manager</b> to strengthen our partnerships and reach.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Impact Section -->
+    <section id="impact" class="py-5 bg-white">
+        <div class="container">
+            <h2 class="section-title text-center">Our Impact</h2>
+            <div class="divider"></div>
+            <div class="row g-4 text-center">
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-body py-4">
+                            <i class="bi bi-people-fill" style="font-size:2.5rem;color:var(--primary);"></i>
+                            <h5 class="card-title mt-3 mb-2 fw-bold">Communities Reached</h5>
+                            <p class="card-text">
+                                We have improved healthcare access for thousands of people in both urban and remote regions across Sudan, ensuring vital resources reach those who need them most.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-body py-4">
+                            <i class="bi bi-award" style="font-size:2.5rem;color:var(--primary);"></i>
+                            <h5 class="card-title mt-3 mb-2 fw-bold">Quality Recognition</h5>
+                            <p class="card-text">
+                                Our commitment to quality and compliance has earned us the trust of healthcare professionals, government bodies, and international partners.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-body py-4">
+                            <i class="bi bi-lightbulb" style="font-size:2.5rem;color:var(--primary);"></i>
+                            <h5 class="card-title mt-3 mb-2 fw-bold">Innovation in Action</h5>
+                            <p class="card-text">
+                                We introduce new healthcare technologies and solutions, supporting local providers with training and ongoing support to improve patient outcomes.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">Our Partners</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-10 text-center">
+                    <p class="fs-5">
+                        We collaborate with reputable international manufacturers and local distribution networks to provide affordable, high-quality medical products and services across Sudan.
+                    </p>
+                    <div class="partners-logos d-flex flex-wrap justify-content-center align-items-center gap-4 mt-4">
+                        <img src="https://dummyimage.com/120x40/cccccc/000000&text=Partner+1" alt="Partner 1" class="img-fluid">
+                        <img src="https://dummyimage.com/120x40/cccccc/000000&text=Partner+2" alt="Partner 2" class="img-fluid">
+                        <img src="https://dummyimage.com/120x40/cccccc/000000&text=Partner+3" alt="Partner 3" class="img-fluid">
+                        <img src="https://dummyimage.com/120x40/cccccc/000000&text=Partner+4" alt="Partner 4" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-white">
+        <div class="container">
+            <h2 class="section-title text-center">Contact Us</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <form class="contact-form shadow-sm p-4 rounded-4 bg-light">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                            <label for="name">Your Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+                            <label for="email">Your Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" id="message" rows="5" placeholder="Your Message" style="height: 120px;" required></textarea>
+                            <label for="message">Your Message</label>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg shadow-lg" style="letter-spacing:1px;box-shadow:0 6px 24px rgba(46,49,146,0.10);transition:background 0.3s,transform 0.2s;">Send Message</button>
+                        </div>
+                    </form>
+                    <div class="mt-4 text-center fs-5">
+                        <div class="row g-3 justify-content-center">
+                            <div class="col-12 col-md-4">
+                                <div class="bg-white rounded-4 shadow-sm py-3 px-2 h-100 d-flex flex-column align-items-center" style="min-height:100px;">
+                                    <i class="bi bi-envelope-at" style="font-size:2rem;color:var(--primary);"></i>
+                                    <div class="fw-bold mt-2">Email</div>
+                                    <div class="text-muted small">info@equatorialmed.com</div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="bg-white rounded-4 shadow-sm py-3 px-2 h-100 d-flex flex-column align-items-center" style="min-height:100px;">
+                                    <i class="bi bi-telephone" style="font-size:2rem;color:var(--primary);"></i>
+                                    <div class="fw-bold mt-2">Phone</div>
+                                    <div class="text-muted small">+249 123 456 789</div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="bg-white rounded-4 shadow-sm py-3 px-2 h-100 d-flex flex-column align-items-center" style="min-height:100px;">
+                                    <i class="bi bi-geo-alt" style="font-size:2rem;color:var(--primary);"></i>
+                                    <div class="fw-bold mt-2">Address</div>
+                                    <div class="text-muted small">El Gedaref State, Sudan</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 rounded-4 overflow-hidden shadow-lg border border-2 border-light" style="height:240px;">
+                        <iframe src="https://maps.google.com/maps?q=El+Gedaref+Sudan&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" frameborder="0" style="border:0;filter: grayscale(0.2) contrast(1.1) brightness(1.05);" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer text-center" style="border-top:1.5px solid #e0eafc; background:linear-gradient(90deg,rgba(46,49,146,0.98) 0%,rgba(0,198,174,0.92) 100%); box-shadow:0 -4px 32px rgba(46,49,146,0.08); font-family:'Montserrat',sans-serif;">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-4 mb-lg-0 text-lg-start text-center">
+                    <div class="d-flex align-items-center gap-3 justify-content-lg-start justify-content-center mb-2">
+                        <span style="display:inline-block;background:linear-gradient(135deg,#fff 60%,#e0eafc 100%);border-radius:20%;padding:1px;">
+                            <img src="logo.png" alt="logo" style="height:68px;width:198px;filter:drop-shadow(0 2px 8px rgba(46,49,146,0.10));">
+                        </span>
+                        {% comment %} <span class="fw-bold fs-3" style="letter-spacing:2px;color:#fff;text-shadow:0 2px 8px rgba(46,49,146,0.10);font-family:'Montserrat',sans-serif;">Equatorial</span> {% endcomment %}
+                    </div>
+                    <div class="mt-2 text-light small" style="opacity:0.85;font-size:1.08rem;max-width:340px;">
+                        Improving Healthcare Access Across Sudan with Integrity and Excellence.
+                    </div>
+                </div>
+                <div class="col-lg-2 d-none d-lg-flex justify-content-center">
+                    <div style="width:1.5px;height:80px;background:rgba(255,255,255,0.13);border-radius:1px;"></div>
+                </div>
+                <div class="col-lg-5 text-lg-end text-center">
+                    <div class="mb-3">
+                        <div class="social-icons d-inline-flex gap-3">
+                            <a href="#" class="d-inline-block" aria-label="LinkedIn" style="color:#fff;transition:color 0.2s;">
+                                <i class="bi bi-linkedin" style="font-size:2rem;vertical-align:middle;filter:drop-shadow(0 2px 8px rgba(0,198,174,0.10));"></i>
+                            </a>
+                            <a href="#" class="d-inline-block" aria-label="Twitter" style="color:#fff;transition:color 0.2s;">
+                                <i class="bi bi-twitter-x" style="font-size:2rem;vertical-align:middle;filter:drop-shadow(0 2px 8px rgba(0,198,174,0.10));"></i>
+                            </a>
+                            <a href="#" class="d-inline-block" aria-label="Facebook" style="color:#fff;transition:color 0.2s;">
+                                <i class="bi bi-facebook" style="font-size:2rem;vertical-align:middle;filter:drop-shadow(0 2px 8px rgba(0,198,174,0.10));"></i>
+                            </a>
+                            <a href="#" class="d-inline-block" aria-label="Instagram" style="color:#fff;transition:color 0.2s;">
+                                <i class="bi bi-instagram" style="font-size:2rem;vertical-align:middle;filter:drop-shadow(0 2px 8px rgba(0,198,174,0.10));"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <span class="text-light small" style="opacity:0.7;letter-spacing:1px;font-size:1.02rem;">&copy; {{ now|date:"Y" }} Equatorial Medical Company LTD. All rights reserved.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Animate sections on scroll
+        document.addEventListener("DOMContentLoaded", function() {
+            const sections = document.querySelectorAll("section");
+            const reveal = (el) => {
+                const rect = el.getBoundingClientRect();
+                return rect.top < window.innerHeight - 100;
+            };
+            const animateSections = () => {
+                sections.forEach(sec => {
+                    if (reveal(sec)) {
+                        sec.style.opacity = 1;
+                        sec.style.transform = "none";
+                    }
+                });
+            };
+            sections.forEach(sec => {
+                sec.style.opacity = 0;
+                sec.style.transform = "translateY(40px)";
+            });
+            animateSections();
+            window.addEventListener("scroll", animateSections);
+
+            // Animated counters
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-count');
+                    const count = +counter.innerText;
+                    const inc = Math.ceil(target / 60);
+                    if(count < target) {
+                        counter.innerText = count + inc;
+                        setTimeout(updateCount, 20);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        });
+    </script>
+</body>
+</html>
